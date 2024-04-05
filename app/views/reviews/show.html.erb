@@ -1,0 +1,17 @@
+<h1>Review for <%= link_to @game.title, @game %></h1>
+<ul>
+    <h6>
+        Authored by: <%= @review.user.name %>
+    </h6>
+    <h6>
+        Review details:
+        <ul>
+            <li>Stars: <%= @review.stars %></li>
+            <li>Comments: <%= @review.comment %></li>
+        </ul>
+    </h6>
+</ul>
+<section class="admin">
+  <%= link_to("Edit", edit_game_review_path(@game, @review), class: "button") %>
+  <%= link_to("Delete", game_review_path(@game, @review), class: "button", data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }) %>
+</section>

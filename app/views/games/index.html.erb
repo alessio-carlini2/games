@@ -1,0 +1,36 @@
+<% @games.each do |game| %>
+  <section class="movie">
+    <div class="image">
+        <% unless game.image_file_name.blank? %>
+            <%= image_tag game.image_file_name %>
+        <% end %>
+    </div>
+    <div class="summary">
+      <h2>
+        <%= link_to(game.title, game_path(game)) %>
+      </h2>
+      <h3>
+        <%= total_gross(game) %>
+      </h3>
+        <span class="stars">
+          <% if game.reviews.size > 0 %>
+            <%= render "shared/stars", percent: game.average_stars_as_percent %>
+          <% else %>
+            <span>
+              <strong>
+                No reviews
+              </strong>
+            </span>
+          <% end %>
+        </span>
+      <p>
+        <%= truncate(game.description, length: 150, separator: ' ') %>
+      </p>
+    </div>
+  </section>
+<% end %>
+<% if current_user_admin? %>
+  <section class="admin">
+    <%= link_to "Add New Game", new_game_path, class: "button" %>
+  </section>
+<% end %>

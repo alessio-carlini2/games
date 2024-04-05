@@ -1,0 +1,33 @@
+<%= form_with(model: game) do |f| %>
+  <%= render "shared/errors", object: game %>
+
+  <%= f.label :title %>
+  <%= f.text_field :title, autofocus: true %>
+
+  <%= f.label :description %>
+  <%= f.text_area :description, rows: 10 %>
+
+  <%= f.label :rating %>
+  <%= f.select :rating, Game::RATINGS, prompt: "Pick one" %>
+
+  <%= f.label :released_on %>
+  <%= f.date_field :released_on %>
+
+  <%= f.label :total_gross %>
+  <%= f.number_field :total_gross %>
+
+  <%= f.label :director %>
+  <%= f.text_field :director %>
+
+  <%= f.label :play_time %>
+  <%= f.text_field :play_time %>
+
+  <%= f.label :image_file_name %>
+  <%= f.text_field :image_file_name %>
+
+  <div class="checkboxes">
+    <%= f.collection_check_boxes(:genre_ids, Genre.order(:name), :id, :name) %>
+  </div>
+
+  <%= f.submit %>
+<% end %>

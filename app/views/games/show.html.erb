@@ -1,0 +1,79 @@
+<section class="movie-details">
+  <div class="image">
+    <%= image_tag @game.image_file_name unless @game.image_file_name.blank? %>
+    <% if current_user %>
+        <div class="faves">
+                <%= fave_or_unfave_button(@game, @favorite) %>
+                <div class="count">
+                    <%= @fans.size %>
+                </div>
+        </div>
+    <% end %>
+  </div>
+    <div class="details">
+        <h1>
+            <%= @game.title %>
+        </h1>
+        <h2>
+            <%= year_of(@game)%> &bull; <%= @game.rating%>
+        </h2>
+        <div class="reviews">
+            <% if @game.reviews.size > 0 %>
+                <%= render "shared/stars", percent: @game.average_stars_as_percent %>
+            <% end %>
+            <%= link_to pluralize(@game.reviews.size, "review"), game_reviews_path(@game) %>
+        </div>
+        <p>
+            <%= @game.description %>
+        </p>
+        <table>
+            <tr>
+                <th>Director:</th>
+                <td><%= @game.director %></td>
+            </tr>
+            <tr>
+                <th>Play time:</th>
+                <td><%= @game.play_time %></td>
+            </tr>
+            <tr>
+                <th>
+                    Total Gross:
+                </th>
+                <td>
+                    <%= total_gross(@game) %>
+                </td>
+            </tr>
+        </table>
+          <%= link_to "Write Review", new_game_review_path(@game),
+              class: "review" %>
+    </div>
+    <aside>
+        <% if @fans.present? %>
+            <h4>Fans</h4>
+            <ul>
+            <% @fans.each do |user| %>
+                <li>
+                    <%= profile_image(user, 35) %>
+                    <%= link_to user.name, user %>
+                </li>
+            <% end %>
+            </ul>
+        <% end %>
+        <% if @genres.present? %>
+            <h4>genres</h4>
+            <ul>
+            <% @genres.each do |genre| %>
+                <li>
+                    <%= link_to(genre.name, genre_path(genre)) %>
+                </li>
+            <% end %>
+            </ul>
+        <% end %>
+    </aside>
+</section>
+<% if current_user_admin? %>
+    <section class="admin">
+        <%= link_to("Edit", edit_game_path(@game), class: "button") %>
+        <%= button_to("Delete", game_path(@game), class: "button", data: { turbo_method: :delete, turbo_confirm: "Are you sure you want to delete #{@game.title}?" }) %>
+    </section>
+<% end %>

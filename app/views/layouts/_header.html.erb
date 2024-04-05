@@ -1,0 +1,43 @@
+<header>
+    <nav>
+    <%= link_to(image_tag("videogamelogo.png"), root_path) %>
+        <ul class="left">
+            <li>
+                <%= nav_link_to "Launched Games", games_path %>
+            </li>
+            <li>
+                <%= nav_link_to 'Upcoming Titles', filtered_games_path(:upcoming) %>
+            </li>
+            <li>
+                <%= nav_link_to 'Recent Releases', filtered_games_path(:recent) %>
+            </li>
+            <li>
+                <%= nav_link_to "Top Titles", filtered_games_path(:hits) %>
+            </li>
+            <li>
+                <%= nav_link_to "Discount Bin", filtered_games_path(:flops) %>
+            </li>
+        </ul>
+        <ul class="right">
+            <% if current_user %>
+                <li>
+                    <%= link_to(current_user.name, current_user) %>
+                </li>
+                <li>
+                    <%= link_to("Account Settings", edit_user_path(current_user)) %>
+                </li>
+                <li>
+                    <%= link_to("Sign out", session_path,
+                        data: { turbo_method: :delete, turbo_confirm: "Are you sure you want to sign out?" }) %>
+                </li>
+            <% else %>
+                <li>
+                    <%= link_to("Sign In", signin_path, class: "button") %>
+                </li>
+                <li>
+                    <%= link_to("Sign Up", signup_path, class: "button") %>
+                </li>
+            <% end %>
+        </ul>
+    </nav>
+</header>
