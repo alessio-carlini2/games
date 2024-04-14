@@ -28,4 +28,12 @@ module GamesHelper
       link_to(text, url)
     end
   end
+
+  def main_image(game)
+    if game.main_image.attached?
+      image_tag(game.main_image)
+    else
+      image_tag("placeholder.jpg")
+    end
+  end
 end

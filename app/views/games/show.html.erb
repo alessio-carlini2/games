@@ -1,6 +1,6 @@
 <section class="movie-details">
   <div class="image">
-    <%= image_tag @game.image_file_name unless @game.image_file_name.blank? %>
+    <%= main_image(@game) %>
     <% if current_user %>
         <div class="faves">
                 <%= fave_or_unfave_button(@game, @favorite) %>
