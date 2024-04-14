@@ -17,9 +17,8 @@ Game.create!([
                  released_on: '2019-04-26',
                  rating: 'PG-13',
                  total_gross: 1_223_641_414,
-                 director: 'Anthony Russo',
+                 director: 'Steve Ferreira',
                  play_time: '181 min',
-                 image_file_name: 'fifa.jpg'
                },
                {
                  title: 'Rocket League',
@@ -30,9 +29,8 @@ Game.create!([
                  released_on: '2019-03-08',
                  rating: 'PG-13',
                  total_gross: 1_110_662_849,
-                 director: 'Anna Boden',
+                 director: 'Thomas Silloway',
                  play_time: '124 min',
-                 image_file_name: 'fifa.jpg'
                },
                {
                  title: 'Fifa 2023',
@@ -43,9 +41,8 @@ Game.create!([
                  released_on: '2018-02-16',
                  rating: 'PG-13',
                  total_gross: 1_346_913_161,
-                 director: 'Ryan Coogler',
+                 director: 'Andrew Wilson',
                  play_time: '134 min',
-                 image_file_name: 'fifa.jpg'
                },
                {
                  title: 'Fortnite',
@@ -56,9 +53,8 @@ Game.create!([
                  released_on: '2018-04-27',
                  rating: 'PG-13',
                  total_gross: 2_048_359_754,
-                 director: 'Anthony Russo',
+                 director: 'Charlie Wen',
                  play_time: '149 min',
-                 image_file_name: 'fifa.jpg'
                },
                {
                  title: 'Forza Horizon 5',
@@ -69,9 +65,8 @@ Game.create!([
                  released_on: '2011-06-17',
                  rating: 'PG-13',
                  total_gross: 219_851_172,
-                 director: 'Martin Campbell',
+                 director: 'Mike Brown',
                  play_time: '114 min',
-                 image_file_name: 'fifa.jpg'
                },
                {
                  title: 'Valorant',
@@ -82,9 +77,8 @@ Game.create!([
                  released_on: '2015-08-07',
                  rating: 'PG-13',
                  total_gross: 168_257_860,
-                 director: 'Josh Trank',
+                 director: 'Joe Ziegler',
                  play_time: '100 min',
-                 image_file_name: 'fifa.jpg'
                },
                {
                  title: 'Grand Theft Auto',
@@ -95,9 +89,8 @@ Game.create!([
                  released_on: '2008-05-02',
                  rating: 'PG-13',
                  total_gross: 585_366_247,
-                 director: 'Jon Favreau',
+                 director: 'Andrew Semple ',
                  play_time: '126 min',
-                 image_file_name: 'fifa.jpg'
                },
                {
                  title: 'Terraria',
@@ -108,9 +101,8 @@ Game.create!([
                  released_on: '1978-12-15',
                  rating: 'PG',
                  total_gross: 300_451_603,
-                 director: 'Richard Donner',
+                 director: 'Andrew "Redigit" Spinks',
                  play_time: '143 min',
-                 image_file_name: 'fifa.jpg'
                },
                {
                  title: 'Call of Duty: Warzone',
@@ -122,9 +114,8 @@ Game.create!([
                  released_on: '2002-05-03',
                  rating: 'PG-13',
                  total_gross: 825_025_036,
-                 director: 'Sam Raimi',
+                 director: 'Ken Turner',
                  play_time: '121 min',
-                 image_file_name: 'fifa.jpg'
                },
                {
                  title: 'League of legends',
@@ -135,9 +126,8 @@ Game.create!([
                  released_on: '1989-06-23',
                  rating: 'PG-13',
                  total_gross: 411_348_924,
-                 director: 'Tim Burton',
+                 director: 'Jeremy Lee',
                  play_time: '126 min',
-                 image_file_name: 'fifa.jpg'
                },
                {
                  title: 'Among Us',
@@ -148,9 +138,8 @@ Game.create!([
                  released_on: '2004-07-23',
                  rating: 'PG-13',
                  total_gross: 82_102_379,
-                 director: "Jean-Christophe 'Pitof' Comar",
+                 director: "Marcus Bromander",
                  play_time: '101 min',
-                 image_file_name: 'fifa.jpg'
                },
                {
                  title: 'Roblox',
@@ -161,9 +150,8 @@ Game.create!([
                  released_on: '2017-06-02',
                  rating: 'PG-13',
                  total_gross: 821_847_012,
-                 director: 'Patty Jenkins',
+                 director: 'David Baszucki',
                  play_time: '141 min',
-                 image_file_name: 'fifa.jpg'
                }
              ])
 User.create!(name: "admin", email: "admin@fake.com", password: "password123", username: "admin", admin: true)
@@ -177,3 +165,22 @@ User.create!(name: "admin", email: "admin@fake.com", password: "password123", us
   Genre.create(name: "Puzzle")
   Genre.create(name: "Sports")
   Genre.create(name: "Simulation")
+
+  [
+  ["Apex Legends", "apex-legends.jpg"],
+  ["Rocket League", "rocket-league.jpg"],
+  ["Fifa 2023", "fifa.jpg"],
+  ["Fortnite", "fortnite.png"],
+  ["Forza Horizon 5", "forza-horizon.jpeg"],
+  ["Valorant", "valorant.jpeg"],
+  ["Grand Theft Auto", "gta.png"],
+  ["Terraria", "terraria.jpg"],
+  ["Call of Duty: Warzone", "warzone.jpeg"],
+  ["League of legends", "league-of-legends.jpeg"],
+  ["Among Us", "among-us.jpeg"],
+  ["Roblox", "roblox.jpeg"]
+].each do |game_title, file_name|
+  game = Game.find_by!(title: game_title)
+  file = File.open(Rails.root.join("app/assets/images/#{file_name}"))
+  game.main_image.attach(io: file, filename: file_name)
+end

@@ -49,7 +49,7 @@ class GamesController < ApplicationController
 
   def game_params
     params.require(:game).permit(:title, :rating, :total_gross, :description, :released_on, :director, :play_time,
-                                 :image_file_name, genre_ids: [])
+                                 :main_image, genre_ids: [])
   end
 
   def set_game
